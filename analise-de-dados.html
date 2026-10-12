@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<style>html,body{margin:0;padding:0;}img{max-width:100%;}[hidden]{display:none!important;}</style>
+<title>Análise de dados</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500;1,700&display=swap">
+<style>
+/* Padrão Smart (páginas de apoio): fundo azul, faixas azul-marinho, rótulos azul-claro, destaques em amarelo, avisos no Post-it Smart */
+:root{
+  --bg:#1E6CBE; --band:#1F3A93; --band-2:#18307C; --label:#BFE3FF; --muted:#D6E6F7; --suave:#EAF2FC; --amarelo:#FFD966; --branco:#FFFFFF;
+  --postit:#FFF6D6; --postit-borda:#FFD966; --postit-txt:#1F3A93; --postit-rot:#B45309;
+  --painel:rgba(31,58,147,.42); --cartao:rgba(255,255,255,.08); --linha:rgba(255,255,255,.24);
+  --fonte:"Montserrat","Segoe UI",Helvetica,Arial,sans-serif;
+  color-scheme:light;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{font-family:var(--fonte);color:var(--branco);background:var(--bg);font-size:16px;font-weight:500;line-height:1.6;padding:0 16px 56px;-webkit-font-smoothing:antialiased}
+.wrap{max-width:860px;margin:0 auto}
+b,strong{font-weight:700}
+a{color:inherit}
+
+header{background:var(--band);border-radius:14px;padding:clamp(1.4rem,4vw,2.4rem);margin:28px 0 18px;position:relative;overflow:hidden}
+header::after{content:"";position:absolute;right:-90px;top:-90px;width:280px;height:280px;border-radius:50%;background:radial-gradient(circle,rgba(255,217,102,.28),rgba(255,217,102,0) 70%);pointer-events:none}
+.kicker{display:inline-block;font-size:.75rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--band);background:var(--amarelo);padding:.4rem .8rem;border-radius:99px;margin-bottom:1rem}
+h1{font-size:clamp(1.8rem,5.4vw,2.6rem);line-height:1.1;font-weight:800;letter-spacing:-.01em;text-wrap:balance}
+.rule{width:56px;height:4px;background:var(--amarelo);border-radius:2px;margin:16px 0 16px}
+.sub{font-size:1.05rem;color:var(--muted);max-width:620px;margin:0}
+
+.acoes{display:flex;justify-content:flex-end;margin:0 0 12px}
+button{font-family:var(--fonte);font-size:.78rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--band);background:var(--amarelo);border:0;border-radius:99px;padding:.55rem 1rem;cursor:pointer;transition:transform .15s,box-shadow .15s}
+button:hover,button:focus-visible{transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,.25)}
+a:focus-visible,button:focus-visible{outline:3px solid var(--amarelo);outline-offset:3px}
+
+.frase{background:var(--band);border-left:6px solid var(--amarelo);border-radius:10px;padding:22px 26px;margin:0 0 20px;font-size:clamp(1.05rem,2.6vw,1.25rem);line-height:1.45}
+.frase b{color:var(--amarelo)}
+.frase .peq{display:block;margin-top:8px;font-size:.95rem;color:var(--label)}
+
+/* índice */
+.indice{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:34px;background:var(--band);border-radius:14px;border-top:6px solid var(--amarelo);padding:clamp(1rem,3vw,1.4rem)}
+.indice a{display:block;text-decoration:none;padding:.5rem .6rem;border-radius:8px;transition:background .15s}
+.indice a:hover,.indice a:focus-visible{background:rgba(255,255,255,.12)}
+.indice .n{display:block;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--amarelo);font-weight:800}
+.indice .t{display:block;font-size:.95rem;font-weight:600;line-height:1.35;margin-top:3px}
+
+section{margin-bottom:34px;scroll-margin-top:16px}
+.movn{display:inline-block;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--band);background:var(--amarelo);font-weight:800;padding:.3rem .7rem;border-radius:99px;margin-bottom:8px}
+h2{font-size:clamp(1.15rem,3.4vw,1.45rem);font-weight:800;line-height:1.25;background:var(--band);border-left:6px solid var(--amarelo);border-radius:10px;padding:.8rem 1rem .8rem 1.1rem;margin-bottom:14px}
+h3{font-size:1.05rem;font-weight:800;margin:22px 0 8px}
+p{margin-bottom:13px}
+
+ul,ol{list-style:none;margin:0 0 14px}
+li{position:relative;padding-left:22px;margin-bottom:8px}
+ul>li:before{content:"–";position:absolute;left:3px;color:var(--amarelo);font-weight:800}
+ol{counter-reset:o}
+ol>li{counter-increment:o;padding-left:38px;margin-bottom:12px}
+ol>li:before{content:counter(o);position:absolute;left:0;top:.05em;display:grid;place-items:center;width:1.55rem;height:1.55rem;border-radius:50%;background:var(--branco);color:var(--band);font-size:.75rem;font-weight:800}
+
+.duas{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:16px 0}
+.tres{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:16px 0}
+.card,.bloco{background:var(--cartao);border:1px solid var(--linha);border-top:4px solid var(--label);border-radius:12px;padding:18px 20px;min-width:0}
+.card.amb,.bloco.amb{border-top-color:var(--amarelo)}
+.card h3,.bloco h3{margin:0 0 9px;font-size:1rem;text-transform:uppercase;letter-spacing:.04em}
+.card p,.card li,.bloco p,.bloco li{font-size:.95rem;margin-bottom:6px}
+
+.nota,.alerta{padding:16px 20px;margin:18px 0;font-size:.96rem}
+.nota{background:var(--painel);border-left:4px solid var(--label);border-radius:0 10px 10px 0}
+.alerta{background:var(--postit);color:var(--postit-txt);border:2px solid var(--postit-borda);border-radius:10px}
+.lab{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;font-weight:800;margin-bottom:6px;color:var(--postit-rot)}
+.nota .lab{color:var(--label)}
+
+.tab-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:14px 0 20px;border-radius:10px;background:var(--painel)}
+table{width:100%;border-collapse:collapse;font-size:.93rem;min-width:500px}
+th{background:var(--band);color:var(--label);text-align:left;padding:12px 14px;font-weight:800;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase}
+td{padding:13px 14px;border-top:1px solid var(--linha);vertical-align:top}
+td .leg{display:block;font-size:.8rem;color:var(--label);font-weight:500;margin-top:2px}
+
+footer{border-top:1px solid var(--linha);margin-top:40px;padding-top:18px;font-size:.85rem;color:var(--suave)}
+footer p{margin-bottom:9px}
+
+@media (max-width:700px){
+  body{font-size:15.5px}
+  .duas,.tres{grid-template-columns:1fr;gap:14px}
+  .indice{grid-template-columns:1fr 1fr}
+}
+@media (max-width:430px){ .indice{grid-template-columns:1fr} }
+@media print{
+  .acoes,.indice,header::after{display:none}
+  body{padding:0;background:#fff;color:#1B2440;font-weight:400}
+  header,.frase,h2,.nota,.tab-scroll,.card,.bloco{background:#fff!important;color:#1B2440!important;border:1px solid #C9D3E6}
+  h2,.frase{border-left:6px solid #1F3A93}
+  .frase b,.frase .peq,td .leg,.nota .lab,.sub,footer{color:#1F3A93!important}
+  th{background:#fff!important;color:#1F3A93!important;border-bottom:2px solid #1F3A93}
+  td{border-top:1px solid #C9D3E6}
+  ul>li:before{color:#1F3A93}
+  ol>li:before{background:#1F3A93;color:#fff}
+  .card,.bloco{border-top:4px solid #1F3A93}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="kicker">Material de apoio · Smart TCC</div>
+  <h1>Análise de dados: seis movimentos</h1>
+  <div class="rule"></div>
+  <p class="sub">O que fazer com o material depois de coletado — vale para qualquer pesquisa,
+  seja qual for o método de coleta.</p>
+</header>
+
+<div class="acoes"><button type="button" id="imprimir">Imprimir</button></div>
+
+<div class="frase">
+  Analisar é <b>reduzir o material bruto até que ele responda à sua pergunta</b>.
+  <span class="peq">A técnica muda a ferramenta — não a lógica.</span>
+</div>
+
+<nav class="indice" aria-label="Os seis movimentos">
+  <a href="#m1"><span class="n">Movimento 1</span><span class="t">Volte à pergunta</span></a>
+  <a href="#m2"><span class="n">Movimento 2</span><span class="t">Organize e limpe</span></a>
+  <a href="#m3"><span class="n">Movimento 3</span><span class="t">Descreva antes de interpretar</span></a>
+  <a href="#m4"><span class="n">Movimento 4</span><span class="t">Reduza o material</span></a>
+  <a href="#m5"><span class="n">Movimento 5</span><span class="t">Relacione com objetivos e teoria</span></a>
+  <a href="#m6"><span class="n">Movimento 6</span><span class="t">Interprete e teste</span></a>
+</nav>
+
+<section id="m0">
+  <h2>O que muda com a técnica — e o que não muda nunca</h2>
+  <div class="duas">
+    <div class="card">
+      <h3>Muda</h3>
+      <ul>
+        <li>A ferramenta que você usa</li>
+        <li>O vocabulário do capítulo</li>
+        <li>O tipo de evidência que sai</li>
+      </ul>
+    </div>
+    <div class="card amb">
+      <h3>Não muda</h3>
+      <ul>
+        <li>Partir da pergunta</li>
+        <li>Descrever antes de interpretar</li>
+        <li>Agrupar o semelhante e nomear</li>
+        <li>Dizer o que aquilo significa</li>
+      </ul>
+    </div>
+  </div>
+  <div class="nota">A ordem dos movimentos importa: cada um só se sustenta se o anterior
+  foi feito.</div>
+</section>
+
+<section id="m1">
+  <div class="movn">Movimento 1</div>
+  <h2>Volte à pergunta antes de olhar os dados</h2>
+  <p>Escreva sua pergunta e seus objetivos específicos numa folha e deixe à vista enquanto
+  analisa.</p>
+  <div class="nota">Análise <b>não é</b> “explorar os dados para ver o que aparece”. É procurar
+  neles a resposta que você foi buscar.</div>
+  <div class="alerta">
+    <div class="lab">Por que isso importa</div>
+    Sem esse retorno, você analisa <b>o que é fácil</b> — e não o que responde ao trabalho. É o
+    começo do capítulo que a banca lê e não entende para que serve.
+  </div>
+</section>
+
+<section id="m2">
+  <div class="movn">Movimento 2</div>
+  <h2>Organize e limpe o material</h2>
+  <div class="duas">
+    <div class="card">
+      <h3>Faça o inventário</h3>
+      <ul>
+        <li>O que foi coletado, e quanto</li>
+        <li>O que faltou</li>
+        <li>Quem recusou ou desistiu</li>
+        <li>Datas e locais de cada coleta</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Depois, limpe</h3>
+      <ul>
+        <li>Duplicatas e respostas em branco</li>
+        <li>Transcrições incompletas</li>
+        <li>Grafias e códigos inconsistentes</li>
+        <li>Identificação dos participantes</li>
+      </ul>
+    </div>
+  </div>
+  <div class="nota"><b>Registre as perdas.</b> Quantos questionários foram descartados e por quê
+  vai para o texto — não é vergonha, é método.</div>
+</section>
+
+<section id="m3">
+  <div class="movn">Movimento 3</div>
+  <h2>Descreva antes de interpretar</h2>
+  <p>Diga primeiro o que <b>há</b>, sem opinar: quantos, com que frequência, o que se repete,
+  o que destoa.</p>
+  <div class="duas">
+    <div class="card">
+      <h3>No eixo quantitativo</h3>
+      <p>Frequências, médias, dispersão, distribuição. Olhe os gráficos simples antes de
+      qualquer teste.</p>
+    </div>
+    <div class="card">
+      <h3>No eixo qualitativo</h3>
+      <p>Leitura flutuante do material inteiro. O que apareceu, em quantas entrevistas, com
+      que palavras.</p>
+    </div>
+  </div>
+  <div class="alerta">
+    <div class="lab">É a etapa que todo mundo pula</div>
+    E sem ela a interpretação <b>não tem chão</b>: você conclui sobre um material que ainda
+    não conhece.
+  </div>
+</section>
+
+<section id="m4">
+  <div class="movn">Movimento 4</div>
+  <h2>Reduza: de dado bruto a categoria ou indicador</h2>
+  <p>É o coração da análise — e a operação é a mesma nos dois eixos: <b>agrupar o semelhante e
+  nomear o agrupamento</b>, perdendo volume sem perder sentido.</p>
+  <div class="tab-scroll">
+  <table>
+    <thead><tr><th style="width:22%">Eixo</th><th style="width:30%">O bruto vira…</th><th>Com que ferramenta</th></tr></thead>
+    <tbody>
+      <tr><td><b>Qualitativo</b></td><td>Categorias de análise</td><td>Análise de conteúdo, análise temática, codificação</td></tr>
+      <tr><td><b>Quantitativo</b></td><td>Variáveis e indicadores</td><td>Estatística descritiva e, se couber, testes</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="nota">Você precisa saber dizer <b>de onde veio cada categoria</b>: da teoria,
+  definida antes de olhar os dados, ou dos próprios dados, durante a leitura.</div>
+</section>
+
+<section id="m5">
+  <div class="movn">Movimento 5</div>
+  <h2>Relacione com os objetivos e com a teoria</h2>
+  <p>Para cada achado, duas perguntas:</p>
+  <ol>
+    <li><b>A qual objetivo específico isto responde?</b> Achado que não responde a nenhum
+    objetivo sai do trabalho — ou vira um objetivo novo.</li>
+    <li><b>O que a teoria previa aqui?</b> Confirma, detalha ou contraria?</li>
+  </ol>
+  <div class="nota">O achado que <b>contraria</b> a teoria é o mais valioso que você tem.
+  Não se esconde: discute-se.</div>
+</section>
+
+<section id="m6">
+  <div class="movn">Movimento 6</div>
+  <h2>Interprete e submeta ao contraditório</h2>
+  <p>Interpretar é dizer <b>o que aquilo significa</b> para a sua pergunta. Depois, teste a
+  própria conclusão.</p>
+  <div class="tres">
+    <div class="card"><h3>Procure o contrário</h3><p>Qual caso do seu material desmente a
+    conclusão? Ele existe?</p></div>
+    <div class="card"><h3>Confira o alcance</h3><p>A conclusão cabe no desenho? Associação
+    não é causa.</p></div>
+    <div class="card"><h3>Peça discordância</h3><p>Dê a alguém para ler com a tarefa de
+    discordar.</p></div>
+  </div>
+</section>
+
+<section id="niveis">
+  <h2>A distinção que resolve metade dos erros</h2>
+  <div class="tab-scroll">
+  <table>
+    <thead><tr><th style="width:28%">Nível</th><th>Exemplo</th></tr></thead>
+    <tbody>
+      <tr><td><b>Dado</b><span class="leg">o que se coleta</span></td>
+          <td>38 dos 50 alunos marcaram “concordo”</td></tr>
+      <tr><td><b>Achado</b><span class="leg">o que se constata</span></td>
+          <td>A maioria declara concordar com o uso de IA nas aulas</td></tr>
+      <tr><td><b>Interpretação</b><span class="leg">o que se defende</span></td>
+          <td>A aceitação declarada é alta, mas pode refletir desejo de agradar, já que o
+          questionário foi aplicado pelo professor da turma</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="nota">Os três precisam aparecer no texto — <b>e nessa ordem</b>. Misturá-los é o
+  erro mais comum do capítulo de resultados, e o mais fácil de corrigir antes da entrega.</div>
+</section>
+
+<section id="nao">
+  <h2>O que não é análise</h2>
+  <ul>
+    <li>Repetir a <b>descrição do instrumento</b> que já está na metodologia</li>
+    <li>Colar <b>falas de entrevista</b> em sequência, sem tratamento</li>
+    <li>Despejar as <b>tabelas do software</b> sem uma linha de leitura</li>
+    <li>Afirmar <b>causa</b> onde o desenho só permite associação</li>
+    <li>Apresentar <b>gráfico sem interpretação</b> — figura muda não pontua</li>
+  </ul>
+</section>
+
+<footer>
+  <p>Material de apoio — não substitui a orientação do seu orientador nem as normas do seu curso.
+  Este conteúdo dá o mapa geral da análise; a técnica específica (análise de conteúdo, estatística)
+  é tratada na página de Metodologia.</p>
+  <p>Este conteúdo foi criado, revisado e aprovado pelo <b>Smart TCC</b>.</p>
+</footer>
+
+</div>
+
+<script>
+(function(){
+  var b = document.getElementById('imprimir');
+  if (b) b.addEventListener('click', function(){ window.print(); });
+})();
+</script>
+
+<script>
+/* Navegação interna: funciona também dentro da caixa de incorporação do Wix */
+document.addEventListener('click', function (e) {
+  var a = e.target.closest('a[href^="#"]'); if (!a) return;
+  var alvo = document.getElementById(a.getAttribute('href').slice(1)); if (!alvo) return;
+  e.preventDefault();
+  var suave = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  alvo.scrollIntoView({ behavior: suave ? 'smooth' : 'auto', block: 'start' });
+  try { history.replaceState(null, '', a.getAttribute('href')); } catch (_) {}
+  document.querySelectorAll('.caso.ativo').forEach(function (c) { c.classList.remove('ativo'); });
+  if (alvo.classList.contains('caso')) alvo.classList.add('ativo');
+});
+
+/* Informa a altura ao Wix, para o elemento de incorporação se ajustar (ver instruções no fim do arquivo) */
+(function () {
+  function avisarAltura() {
+    try { window.parent.postMessage({ tipo: 'altura', altura: document.documentElement.scrollHeight }, '*'); } catch (e) {}
+  }
+  window.addEventListener('load', avisarAltura);
+  window.addEventListener('resize', avisarAltura);
+  if (window.ResizeObserver) new ResizeObserver(avisarAltura).observe(document.body);
+})();
+</script>
+</body>
+</html>

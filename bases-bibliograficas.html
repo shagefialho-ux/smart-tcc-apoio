@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<style>html,body{margin:0;padding:0;}img{max-width:100%;}[hidden]{display:none!important;}</style>
+<title>Bases Bibliográficas por Área</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500;1,700&display=swap">
+<style>
+  /* Padrão dos slides Smart: fundo azul, faixa-título azul-marinho, cabeçalhos azul-claro, células amarelas com texto marinho */
+  :root{
+    --bg:#1E6CBE; --band:#1F3A93; --head:#BFE3FF;
+    --cell:#FFD966; --cell-2:#FFE9A6; --navy:#1F3A93; --navy-soft:#33479B;
+    --on-blue:#FFFFFF; --on-blue-soft:#EAF2FC;
+    --rule-cell:#E3BC47;
+    --open-bg:#E4F4E8; --open-fg:#0B5A34;
+    --capes-bg:#DCE9FF; --capes-fg:#123D8A;
+    --part-bg:#FFFFFF; --part-fg:#8A4600;
+    --f-display:"Montserrat","Segoe UI",Helvetica,Arial,sans-serif;
+    --f-body:"Montserrat","Segoe UI",Helvetica,Arial,sans-serif;
+    --step-0:0.8rem; --step-1:0.95rem; --step-2:1.02rem; --step-3:1.25rem; --step-4:1.45rem;
+    --measure:70ch; color-scheme:light;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--on-blue);font-family:var(--f-body);font-size:var(--step-2);line-height:1.6;-webkit-font-smoothing:antialiased;}
+  .wrap{max-width:58rem;margin:0 auto;padding-block:2.4rem 4rem;padding-inline:1.1rem;}
+  .eyebrow{display:inline-block;font-weight:700;font-size:var(--step-0);letter-spacing:.08em;text-transform:uppercase;color:var(--on-blue);background:var(--band);padding:.45rem .9rem;border-radius:4px;margin:0 0 1.2rem;}
+  h1{font-family:var(--f-display);font-weight:800;font-size:clamp(1.8rem,5.5vw,2.4rem);line-height:1.15;margin:0 0 .9rem;text-wrap:balance;color:var(--on-blue);}
+  .standfirst{font-size:1.08rem;font-weight:500;color:var(--on-blue-soft);margin:0 0 1.8rem;max-width:var(--measure);}
+  h2{font-family:var(--f-display);font-size:var(--step-4);font-weight:800;line-height:1.25;margin:2.8rem 0 .7rem;background:var(--band);color:var(--on-blue);padding:.7rem 1rem;border-radius:4px;text-wrap:balance;}
+  .lead{color:var(--on-blue-soft);font-weight:500;max-width:var(--measure);margin:0 0 1rem;font-size:var(--step-1);}
+  a{color:var(--navy);text-underline-offset:2px;font-weight:600;}
+  a:focus-visible,button:focus-visible{outline:3px solid var(--on-blue);outline-offset:2px;border-radius:3px;}
+
+  .destaque{background:var(--cell);color:var(--navy);border-radius:6px;padding:1.2rem 1.3rem;display:grid;gap:.6rem;}
+  .destaque .rot{font-size:.74rem;letter-spacing:.1em;text-transform:uppercase;color:var(--navy);font-weight:800;}
+  .destaque p{margin:0;max-width:var(--measure);font-weight:500;}
+  .destaque strong{font-weight:800;}
+
+  .legenda{display:flex;flex-wrap:wrap;gap:.5rem 1.2rem;margin:1.4rem 0 0;font-size:var(--step-1);color:var(--on-blue);font-weight:500;}
+  .legenda span{display:inline-flex;align-items:center;gap:.45rem;}
+  .legenda .chip.papel-2{box-shadow:inset 0 0 0 1.5px var(--on-blue);color:var(--on-blue);}
+  .legenda .chip.papel-3{box-shadow:inset 0 0 0 1px var(--on-blue-soft);color:var(--on-blue-soft);}
+  .legenda .chip.papel-1{background:var(--cell);color:var(--navy);}
+
+  .areas-nav{display:flex;flex-wrap:wrap;gap:.5rem;margin:1.4rem 0 0;padding:0;list-style:none;}
+  .areas-nav a{display:inline-block;font-size:.8rem;font-weight:700;text-decoration:none;color:var(--navy);background:var(--head);padding:.45rem .85rem;border-radius:999px;}
+  .areas-nav a:hover{background:var(--cell);}
+
+  .lista{list-style:none;margin:0;padding:0;display:grid;gap:4px;}
+  .lista li{display:grid;grid-template-columns:minmax(9rem,14rem) 1fr;gap:4px;}
+  .lista .nome,.lista .corpo{background:var(--cell);color:var(--navy);padding:.8rem 1rem;}
+  .lista .nome{font-weight:800;line-height:1.3;border-radius:4px 0 0 4px;}
+  .lista .nome small{display:block;font-weight:600;color:var(--navy-soft);font-size:var(--step-0);margin-top:.15rem;}
+  .lista .corpo{min-width:0;display:grid;gap:.4rem;border-radius:0 4px 4px 0;}
+  .lista .chips{display:flex;flex-wrap:wrap;gap:.35rem;}
+  .lista .porque{margin:0;color:var(--navy);font-weight:500;font-size:var(--step-1);}
+  @media (max-width:560px){
+    .lista li{grid-template-columns:1fr;gap:0;}
+    .lista .nome{border-radius:4px 4px 0 0;padding-bottom:.2rem;}
+    .lista .corpo{border-radius:0 0 4px 4px;}
+  }
+
+  .chip{font-size:.68rem;letter-spacing:.05em;text-transform:uppercase;font-weight:800;padding:.2rem .5rem;border-radius:4px;white-space:nowrap;line-height:1.5;}
+  .papel-1{background:var(--navy);color:var(--cell);}
+  .papel-2{background:transparent;color:var(--navy);box-shadow:inset 0 0 0 1.5px var(--navy);}
+  .papel-3{background:transparent;color:var(--navy-soft);box-shadow:inset 0 0 0 1px var(--navy-soft);}
+  .ac-aberto{background:var(--open-bg);color:var(--open-fg);}
+  .ac-capes{background:var(--capes-bg);color:var(--capes-fg);}
+  .ac-parcial{background:var(--part-bg);color:var(--part-fg);}
+
+  .fichas{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,24rem),1fr));gap:.8rem;}
+  .ficha{background:var(--cell);color:var(--navy);border-radius:6px;overflow:hidden;display:grid;align-content:start;min-width:0;}
+  .ficha header{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:.4rem;background:var(--head);padding:.7rem 1.1rem;}
+  .ficha h4{font-family:var(--f-display);font-size:1.08rem;font-weight:800;margin:0;line-height:1.25;color:var(--navy);}
+  .ficha .quem{font-size:.72rem;font-weight:600;color:var(--navy);}
+  .ficha dl{margin:0;padding:.9rem 1.1rem .4rem;display:grid;grid-template-columns:auto 1fr;gap:.4rem .9rem;font-size:var(--step-1);}
+  .ficha dt{font-size:.68rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--navy-soft);padding-top:.2rem;}
+  .ficha dd{margin:0;min-width:0;font-weight:500;font-variant-numeric:tabular-nums;}
+  .ficha .num{font-weight:800;}
+  .ficha .obs{font-size:var(--step-0);color:var(--navy-soft);margin:0 1.1rem .9rem;border-top:1px solid var(--rule-cell);padding-top:.5rem;font-weight:500;}
+  .ficha .obs a{color:var(--navy);}
+
+  .caixa{background:var(--band);border-radius:6px;padding:1.1rem 1.3rem;margin:1.6rem 0 0;}
+  .caixa .rot{font-size:.74rem;letter-spacing:.1em;text-transform:uppercase;color:var(--cell);font-weight:800;display:block;margin-bottom:.55rem;}
+  .caixa p,.caixa li{color:var(--on-blue);font-size:var(--step-1);font-weight:500;max-width:var(--measure);}
+  .caixa strong{color:var(--cell);}
+  .caixa p{margin:0 0 .55rem;}
+  .caixa ol{margin:.2rem 0 0;padding-left:1.3rem;display:grid;gap:.35rem;}
+  .caixa p:last-child{margin-bottom:0;}
+
+  .footer{margin-top:2.6rem;border-top:1px solid var(--on-blue-soft);padding-top:1.1rem;font-size:var(--step-0);color:var(--on-blue-soft);font-weight:500;}
+
+  /* Padrão Smart: abertura em faixa azul-marinho, títulos de seção com filete amarelo e aviso em Post-it creme, como na página "Usando a IA" */
+  .abertura{background:var(--band);border-radius:14px;padding:clamp(1.4rem,4vw,2.6rem);position:relative;overflow:hidden;margin:0 0 1.2rem;}
+  .abertura::after{content:"";position:absolute;right:-90px;top:-90px;width:280px;height:280px;border-radius:50%;background:radial-gradient(circle,rgba(255,217,102,.28),rgba(255,217,102,0) 70%);pointer-events:none;}
+  .abertura .eyebrow{font-size:.75rem;letter-spacing:.12em;color:var(--band);background:var(--cell);padding:.4rem .8rem;border-radius:99px;margin:0 0 1.1rem;}
+  .abertura h1{font-size:clamp(1.8rem,5.4vw,2.8rem);line-height:1.1;letter-spacing:-.01em;}
+  .abertura .standfirst{margin:0;color:#D6E6F7;}
+  h2{border-left:6px solid var(--cell);border-radius:10px;}
+  .caso,.ficha,.caixa,.indice > section{border-radius:10px;}
+  .destaque{background:#FFF6D6;border:2px solid var(--cell);border-radius:10px;}
+  .destaque .rot{color:#B45309;}
+  .destaque .norma{background:#FFFFFF;}
+  .caso.ativo{box-shadow:0 0 0 4px var(--on-blue);}
+</style>
+<style>html{scroll-behavior:smooth}@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="abertura">
+  <p class="eyebrow">Revisão de literatura · bibliometria</p>
+  <h1>Bases bibliográficas por área da ciência</h1>
+  <p class="standfirst">Onde procurar artigos, teses e dados para a sua revisão de literatura, organizado pela área do seu curso. Para cada base, você vê o que ela oferece, quanto ela reúne e como acessá-la sem pagar.</p>
+  </header>
+
+  <div class="destaque">
+    <span class="rot">Antes de tudo</span>
+    <p><strong>Você provavelmente não precisa pagar por nenhuma base.</strong> Scopus e Web of Science, as duas maiores bases pagas, estão liberadas no <strong>Portal de Periódicos da CAPES</strong> para alunos e professores das instituições participantes.</p>
+    <p>Dentro da rede da sua instituição, o acesso é automático. Fora dela, entre pelo Portal com o login <strong>CAFe</strong>, usando o mesmo usuário e senha do sistema acadêmico.</p>
+  </div>
+
+  <div class="legenda" aria-label="Legenda">
+    <span><span class="chip papel-1">Principal</span> comece por aqui</span>
+    <span><span class="chip papel-2">Recomendada</span> amplia a busca</span>
+    <span><span class="chip papel-3">Complementar</span> para completar</span>
+  </div>
+  <div class="legenda" aria-label="Legenda de acesso">
+    <span><span class="chip ac-aberto">Aberta</span> grátis para qualquer pessoa</span>
+    <span><span class="chip ac-capes">Via CAPES</span> grátis pela sua instituição</span>
+    <span><span class="chip ac-parcial">Parcial</span> resumo grátis, texto nem sempre</span>
+  </div>
+
+  <ul class="areas-nav">
+    <li><a href="#agrarias">Agrárias e Ambiental</a></li>
+    <li><a href="#humanas">Humanas e Sociais</a></li>
+    <li><a href="#exatas">Exatas, Engenharias e Computação</a></li>
+    <li><a href="#saude">Saúde e Biológicas</a></li>
+    <li><a href="#especiais">Bases para todas as áreas</a></li>
+    <li><a href="#fichas">Ficha de cada base</a></li>
+  </ul>
+
+  <!-- ÁREAS -->
+  <h2 id="agrarias">Agrárias e Ambiental</h2>
+  <p class="lead">Área com forte produção brasileira. Combine uma base internacional com a SciELO para não perder os estudos feitos no país.</p>
+  <ul class="lista">
+    <li><div class="nome">Scopus</div><div class="corpo"><div class="chips"><span class="chip papel-1">Principal</span><span class="chip ac-capes">Via CAPES</span></div><p class="porque">A maior base com curadoria. Boa cobertura de agronomia, ciências do solo e meio ambiente.</p></div></li>
+    <li><div class="nome">Web of Science</div><div class="corpo"><div class="chips"><span class="chip papel-1">Principal</span><span class="chip ac-capes">Via CAPES</span></div><p class="porque">Periódicos de maior impacto e histórico de citações longo, útil para bibliometria.</p></div></li>
+    <li><div class="nome">SciELO Brasil</div><div class="corpo"><div class="chips"><span class="chip papel-1">Principal</span><span class="chip ac-aberto">Aberta</span></div><p class="porque">Periódicos brasileiros de agrárias com texto completo em português.</p></div></li>
+    <li><div class="nome">DOAJ</div><div class="corpo"><div class="chips"><span class="chip papel-3">Complementar</span><span class="chip ac-aberto">Aberta</span></div><p class="porque">Revistas de acesso aberto do mundo todo, com texto completo.</p></div></li>
+  </ul>
+
+  <h2 id="humanas">Humanas e Sociais</h2>
+  <p class="lead">Educação, administração, direito e ciências sociais publicam muito em português e espanhol. Aqui, as bases latino-americanas pesam mais que as internacionais.</p>
+  <ul class="lista">
+    <li><div class="nome">SciELO Brasil</div><div class="corpo"><div class="chips"><span class="chip papel-1">Principal</span><span class="chip ac-aberto">Aberta</span></div><p class="porque">Principais revistas brasileiras de educação, administração e direito, com texto completo.</p></div></li>
+    <li><div class="nome">Redalyc</div><div class="corpo"><div class="chips"><span class="chip papel-1">Principal</span><span class="chip ac-aberto">Aberta</span></div><p class="porque">Mais da metade das revistas é de ciências sociais. Educação é a área com mais títulos.</p></div></li>
+    <li><div class="nome">Scopus</div><div class="corpo"><div class="chips"><span class="chip papel-2">Recomendada</span><span class="chip ac-capes">Via CAPES</span></div><p class="porque">Para o debate internacional. Tem muitos títulos de humanas, mas poucos em português.</p></div></li>
+    <li><div class="nome">Web of Science</div><div class="corpo"><div class="chips"><span class="chip papel-2">Recomendada</span><span class="chip ac-capes">Via CAPES</span></div><p class="porque">Índices próprios para ciências sociais e para artes e humanidades.</p></div></li>
+    <li><div class="nome">DOAJ</div><div class="corpo"><div class="chips"><span class="chip papel-3">Complementar</span><span class="chip ac-aberto">Aberta</span></div><p class="porque">Revistas abertas de vários países, inclusive muitas da América Latina.</p></div></li>
+  </ul>
+
+  <h2 id="exatas">Exatas, Engenharias e Computação</h2>
+  <p class="lead">Área em que conferências valem tanto quanto revistas e em que muito resultado aparece primeiro como <em>preprint</em>.</p>
+  <ul class="lista">
+    <li><div class="nome">IEEE Xplore</div><div class="corpo"><div class="chips"><span class="chip papel-1">Principal</span><span class="chip ac-parcial">Parcial</span></div><p class="porque">Engenharia elétrica, eletrônica, telecomunicações e computação, incluindo normas técnicas e anais de eventos.</p></div></li>
+    <li><div class="nome">ACM Digital Library<small>computação e IA</small></div><div class="corpo"><div class="chips"><span class="chip papel-1">Principal</span><span class="chip ac-aberto">Aberta</span></div><p class="porque">Desde janeiro de 2026, todo o acervo da ACM está aberto para leitura.</p></div></li>
+    <li><div class="nome">Scopus</div><div class="corpo"><div class="chips"><span class="chip papel-1">Principal</span><span class="chip ac-capes">Via CAPES</span></div><p class="porque">Reúne revistas e mais de 13 milhões de trabalhos de eventos de todas as engenharias.</p></div></li>
+    <li><div class="nome">arXiv</div><div class="corpo"><div class="chips"><span class="chip papel-2">Recomendada</span><span class="chip ac-aberto">Aberta</span></div><p class="porque">Física, matemática, estatística e computação. Os textos são <em>preprints</em>: ainda não passaram por revisão de pares.</p></div></li>
+    <li><div class="nome">Web of Science</div><div class="corpo"><div class="chips"><span class="chip papel-2">Recomendada</span><span class="chip ac-capes">Via CAPES</span></div><p class="porque">Revistas de alto impacto em ciências exatas e dados de citação.</p></div></li>
+    <li><div class="nome">SciELO e Redalyc</div><div class="corpo"><div class="chips"><span class="chip papel-3">Complementar</span><span class="chip ac-aberto">Aberta</span></div><p class="porque">Pouca produção da área, mas úteis para estudos aplicados à realidade brasileira.</p></div></li>
+  </ul>
+
+  <h2 id="saude">Saúde, Biológicas e Biomédicas</h2>
+  <p class="lead">A área com mais bases abertas e de boa qualidade. PubMed é o ponto de partida em quase todas as pesquisas.</p>
+  <ul class="lista">
+    <li><div class="nome">PubMed / PubMed Central<small>PMC</small></div><div class="corpo"><div class="chips"><span class="chip papel-1">Principal</span><span class="chip ac-aberto">Aberta</span></div><p class="porque">PubMed tem mais de 40 milhões de referências. O PMC guarda o texto completo de mais de 11 milhões de artigos.</p></div></li>
+    <li><div class="nome">Scopus</div><div class="corpo"><div class="chips"><span class="chip papel-1">Principal</span><span class="chip ac-capes">Via CAPES</span></div><p class="porque">Mais de 8 mil títulos de ciências da saúde, além de ciências da vida.</p></div></li>
+    <li><div class="nome">Web of Science</div><div class="corpo"><div class="chips"><span class="chip papel-1">Principal</span><span class="chip ac-capes">Via CAPES</span></div><p class="porque">Periódicos de alto impacto e histórico de citações.</p></div></li>
+    <li><div class="nome">LILACS / BVS</div><div class="corpo"><div class="chips"><span class="chip papel-1">Principal</span><span class="chip ac-aberto">Aberta</span></div><p class="porque">Produção em saúde da América Latina e do Caribe, que as bases internacionais cobrem pouco.</p></div></li>
+    <li><div class="nome">SciELO Brasil</div><div class="corpo"><div class="chips"><span class="chip papel-2">Recomendada</span><span class="chip ac-aberto">Aberta</span></div><p class="porque">Revistas brasileiras de saúde com texto completo.</p></div></li>
+    <li><div class="nome">DOAJ</div><div class="corpo"><div class="chips"><span class="chip papel-3">Complementar</span><span class="chip ac-aberto">Aberta</span></div><p class="porque">Revistas de acesso aberto de todas as áreas.</p></div></li>
+    <li><div class="nome">Redalyc</div><div class="corpo"><div class="chips"><span class="chip papel-3">Complementar</span><span class="chip ac-aberto">Aberta</span></div><p class="porque">Tem 142 revistas de medicina, quase todas latino-americanas.</p></div></li>
+  </ul>
+
+  <h2 id="especiais">Bases para todas as áreas</h2>
+  <p class="lead">Não são de uma área específica. Servem para achar teses brasileiras, conferir referências ou chegar ao texto completo.</p>
+  <ul class="lista">
+    <li><div class="nome">Portal de Periódicos da CAPES</div><div class="corpo"><div class="chips"><span class="chip papel-1">Principal</span><span class="chip ac-capes">Via CAPES</span></div><p class="porque">A porta de entrada para as bases pagas. Reúne mais de 49 mil periódicos com texto completo e 455 bases.</p></div></li>
+    <li><div class="nome">BDTD</div><div class="corpo"><div class="chips"><span class="chip papel-1">Principal</span><span class="chip ac-aberto">Aberta</span></div><p class="porque">Teses e dissertações brasileiras com texto completo, de mais de 150 instituições.</p></div></li>
+    <li><div class="nome">Catálogo de Teses e Dissertações da CAPES</div><div class="corpo"><div class="chips"><span class="chip papel-2">Recomendada</span><span class="chip ac-aberto">Aberta</span></div><p class="porque">Registro oficial da pós-graduação brasileira desde 1987. Mostra o que já foi pesquisado no país.</p></div></li>
+    <li><div class="nome">Google Acadêmico</div><div class="corpo"><div class="chips"><span class="chip papel-2">Recomendada</span><span class="chip ac-parcial">Parcial</span></div><p class="porque">Busca muito ampla e sem curadoria. Útil para achar um texto específico, mas mistura trabalhos de qualidade muito diferente.</p></div></li>
+    <li><div class="nome">Crossref</div><div class="corpo"><div class="chips"><span class="chip papel-3">Complementar</span><span class="chip ac-aberto">Aberta</span></div><p class="porque">Serve para conferir DOI e dados de uma referência. Não é um lugar para ler artigos.</p></div></li>
+  </ul>
+
+  <!-- FICHAS -->
+  <h2 id="fichas">Ficha de cada base</h2>
+  <p class="lead">Números conferidos nas fontes oficiais em 28 de setembro de 2026. A data de cada dado aparece na ficha, porque as bases crescem todos os dias.</p>
+
+  <div class="fichas">
+
+    <article class="ficha">
+      <header><h4>Scopus</h4><span class="quem">Elsevier</span></header>
+      <dl>
+        <dt>Tamanho</dt><dd><span class="num">105 milhões</span> de registros; <span class="num">29.905</span> periódicos ativos; 13,2 milhões de trabalhos de eventos</dd>
+        <dt>Conteúdo</dt><dd>Resumo, referências, citações e métricas. Não traz o texto completo: leva ao site da revista.</dd>
+        <dt>Acesso</dt><dd><span class="chip ac-capes">Via CAPES</span> Sem plano individual; assinatura só institucional.</dd>
+      </dl>
+      <p class="obs">Dados de março de 2026. <a href="https://assets.ctfassets.net/o78em1y1w4i4/EX1iy8VxBeQKf8aN2XzOp/a13b1bf2789b73e04ae3436035a0682d/Scopus_Content_coverage_Guide_Jun26.pdf" target="_blank" rel="noopener">Scopus Content Coverage Guide</a></p>
+    </article>
+
+    <article class="ficha">
+      <header><h4>Web of Science</h4><span class="quem">Clarivate · Coleção Principal</span></header>
+      <dl>
+        <dt>Tamanho</dt><dd><span class="num">97 milhões</span> de registros; <span class="num">22 mil</span> periódicos; 254 áreas</dd>
+        <dt>Conteúdo</dt><dd>Resumo, referências e rede de citações. Não traz o texto completo.</dd>
+        <dt>Acesso</dt><dd><span class="chip ac-capes">Via CAPES</span> Assinatura só institucional.</dd>
+      </dl>
+      <p class="obs"><a href="https://clarivate.com/academia-government/scientific-and-academic-research/research-discovery-and-referencing/web-of-science/web-of-science-core-collection/" target="_blank" rel="noopener">Clarivate</a></p>
+    </article>
+
+    <article class="ficha">
+      <header><h4>SciELO Brasil</h4><span class="quem">FAPESP · CAPES · CNPq</span></header>
+      <dl>
+        <dt>Tamanho</dt><dd><span class="num">331</span> periódicos correntes em 8 grandes áreas</dd>
+        <dt>Conteúdo</dt><dd>Texto completo, resumo, referências e DOI.</dd>
+        <dt>Acesso</dt><dd><span class="chip ac-aberto">Aberta</span> Licença CC BY.</dd>
+      </dl>
+      <p class="obs"><a href="https://www.scielo.br/journals/thematic?status=current" target="_blank" rel="noopener">scielo.br</a></p>
+    </article>
+
+    <article class="ficha">
+      <header><h4>Redalyc</h4><span class="quem">UAEMéx · México</span></header>
+      <dl>
+        <dt>Tamanho</dt><dd><span class="num">1.825</span> periódicos; <span class="num">775 mil</span> artigos; 36 países</dd>
+        <dt>Conteúdo</dt><dd>Texto completo. 1.096 revistas de ciências sociais, 428 de ciências naturais e exatas, 275 de humanidades.</dd>
+        <dt>Acesso</dt><dd><span class="chip ac-aberto">Aberta</span> Acesso aberto sem cobrança a leitores e autores.</dd>
+      </dl>
+      <p class="obs"><a href="https://www.redalyc.org/" target="_blank" rel="noopener">redalyc.org</a></p>
+    </article>
+
+    <article class="ficha">
+      <header><h4>IEEE Xplore</h4><span class="quem">IEEE</span></header>
+      <dl>
+        <dt>Tamanho</dt><dd>Quase <span class="num">7 milhões</span> de documentos; cerca de 12 mil normas técnicas</dd>
+        <dt>Conteúdo</dt><dd>Revistas, anais de eventos, normas e livros. Busca e resumo são grátis.</dd>
+        <dt>Acesso</dt><dd><span class="chip ac-parcial">Parcial</span> Texto completo por assinatura institucional, compra avulsa ou plano para membros do IEEE. Confira se sua instituição tem acesso pelo Portal CAPES.</dd>
+      </dl>
+      <p class="obs">Opções de assinatura 2026. <a href="https://innovate.ieee.org/compare-features-chart/" target="_blank" rel="noopener">IEEE</a></p>
+    </article>
+
+    <article class="ficha">
+      <header><h4>ACM Digital Library</h4><span class="quem">ACM</span></header>
+      <dl>
+        <dt>Tamanho</dt><dd>Todo o acervo de publicações da ACM, de computação e IA</dd>
+        <dt>Conteúdo</dt><dd>Texto completo, resumo, referências e DOI.</dd>
+        <dt>Acesso</dt><dd><span class="chip ac-aberto">Aberta</span> Leitura grátis desde 1º de janeiro de 2026. A assinatura Premium hoje vende só ferramentas extras de busca e métricas.</dd>
+      </dl>
+      <p class="obs"><a href="https://www.acm.org/articles/bulletins/2026/january/acm-open-access" target="_blank" rel="noopener">ACM</a> · <a href="https://library.smu.edu.sg/topics-insights/acm-digital-library-now-fully-open-access" target="_blank" rel="noopener">SMU Libraries</a></p>
+    </article>
+
+    <article class="ficha">
+      <header><h4>arXiv</h4><span class="quem">arXiv · Cornell</span></header>
+      <dl>
+        <dt>Tamanho</dt><dd>Mais de <span class="num">3 milhões</span> de artigos; cerca de 32 mil novos por mês</dd>
+        <dt>Conteúdo</dt><dd>Texto completo e identificador arXiv. Física, matemática, computação, estatística, engenharia elétrica, economia.</dd>
+        <dt>Acesso</dt><dd><span class="chip ac-aberto">Aberta</span> Atenção: são <em>preprints</em>, sem revisão por pares obrigatória.</dd>
+      </dl>
+      <p class="obs">Dados de julho de 2026. <a href="https://blog.arxiv.org/2026/07/09/arxiv-now-hosts-over-3-million-articles/" target="_blank" rel="noopener">arXiv blog</a></p>
+    </article>
+
+    <article class="ficha">
+      <header><h4>PubMed e PubMed Central</h4><span class="quem">NLM · EUA</span></header>
+      <dl>
+        <dt>Tamanho</dt><dd>PubMed: mais de <span class="num">40 milhões</span> de referências. PMC: <span class="num">11,3 milhões</span> de artigos completos</dd>
+        <dt>Conteúdo</dt><dd>PubMed traz referência e resumo. O PMC traz o texto completo.</dd>
+        <dt>Acesso</dt><dd><span class="chip ac-aberto">Aberta</span> Alguns textos do PMC só abrem após um período de embargo.</dd>
+      </dl>
+      <p class="obs">PMC: ano fiscal 2025. <a href="https://pubmed.ncbi.nlm.nih.gov/about/" target="_blank" rel="noopener">PubMed</a> · <a href="https://pmc.ncbi.nlm.nih.gov/about/intro/" target="_blank" rel="noopener">PMC</a></p>
+    </article>
+
+    <article class="ficha">
+      <header><h4>DOAJ</h4><span class="quem">Directory of Open Access Journals</span></header>
+      <dl>
+        <dt>Tamanho</dt><dd><span class="num">23.555</span> periódicos; <span class="num">13,6 milhões</span> de artigos</dd>
+        <dt>Conteúdo</dt><dd>Referência, resumo e link para o texto completo. Todas as áreas.</dd>
+        <dt>Acesso</dt><dd><span class="chip ac-aberto">Aberta</span></dd>
+      </dl>
+      <p class="obs">Consulta em 28/09/2026. <a href="https://doaj.org/" target="_blank" rel="noopener">doaj.org</a></p>
+    </article>
+
+    <article class="ficha">
+      <header><h4>LILACS / BVS</h4><span class="quem">BIREME · OPAS · OMS</span></header>
+      <dl>
+        <dt>Tamanho</dt><dd>Mais de <span class="num">1,1 milhão</span> de registros; 2,6 mil periódicos; 30 países</dd>
+        <dt>Conteúdo</dt><dd>Referência e resumo; mais de 740 mil com texto completo.</dd>
+        <dt>Acesso</dt><dd><span class="chip ac-aberto">Aberta</span></dd>
+      </dl>
+      <p class="obs"><a href="https://lilacs.bvsalud.org/en/" target="_blank" rel="noopener">lilacs.bvsalud.org</a></p>
+    </article>
+
+    <article class="ficha">
+      <header><h4>Portal de Periódicos da CAPES</h4><span class="quem">CAPES · MEC</span></header>
+      <dl>
+        <dt>Tamanho</dt><dd>Mais de <span class="num">49 mil</span> periódicos com texto completo; <span class="num">455</span> bases</dd>
+        <dt>Conteúdo</dt><dd>Artigos, livros, normas técnicas, patentes, teses e ferramentas de bibliometria.</dd>
+        <dt>Acesso</dt><dd><span class="chip ac-capes">Via CAPES</span> Pela rede da instituição ou com login CAFe. O conteúdo aberto do Portal pode ser lido por qualquer pessoa.</dd>
+      </dl>
+      <p class="obs"><a href="https://bases.bu.ufsc.br/portal-de-periodicos-da-capes/" target="_blank" rel="noopener">BU/UFSC</a> · <a href="https://www.gov.br/capes/pt-br/acesso-a-informacao/acoes-e-programas/carta-de-servicos-ao-usuario/obter-acesso-ao-portal-de-periodicos-da-capes" target="_blank" rel="noopener">gov.br/CAPES</a></p>
+    </article>
+
+    <article class="ficha">
+      <header><h4>BDTD</h4><span class="quem">Ibict</span></header>
+      <dl>
+        <dt>Tamanho</dt><dd>Mais de <span class="num">1 milhão</span> de teses e dissertações; <span class="num">153</span> instituições</dd>
+        <dt>Conteúdo</dt><dd>Texto completo, reunido dos repositórios das universidades.</dd>
+        <dt>Acesso</dt><dd><span class="chip ac-aberto">Aberta</span></dd>
+      </dl>
+      <p class="obs">Dados de fevereiro de 2025. <a href="https://www.gov.br/ibict/pt-br/central-de-conteudos/noticias/2025/fevereiro/confira-as-15-universidades-com-maior-numero-de-registros-na-biblioteca-digital-brasileira-de-teses-e-dissertacoes-bdtd" target="_blank" rel="noopener">Ibict</a></p>
+    </article>
+
+    <article class="ficha">
+      <header><h4>Catálogo de Teses e Dissertações</h4><span class="quem">CAPES</span></header>
+      <dl>
+        <dt>Tamanho</dt><dd>Trabalhos de mestrado e doutorado defendidos no Brasil desde <span class="num">1987</span></dd>
+        <dt>Conteúdo</dt><dd>Referência, resumo e dados do programa. O texto completo depende da autorização de cada trabalho.</dd>
+        <dt>Acesso</dt><dd><span class="chip ac-aberto">Aberta</span></dd>
+      </dl>
+      <p class="obs"><a href="https://dadosabertos.capes.gov.br/group/catalogo-de-teses-e-dissertacoes-brasil" target="_blank" rel="noopener">Dados Abertos CAPES</a></p>
+    </article>
+
+    <article class="ficha">
+      <header><h4>Google Acadêmico</h4><span class="quem">Google</span></header>
+      <dl>
+        <dt>Tamanho</dt><dd>Não divulgado. Um estudo de 2019 estimou cerca de <span class="num">389 milhões</span> de registros</dd>
+        <dt>Conteúdo</dt><dd>Referência, trecho do resumo e, às vezes, link para o texto completo.</dd>
+        <dt>Acesso</dt><dd><span class="chip ac-parcial">Parcial</span> Busca grátis; sem curadoria de qualidade.</dd>
+      </dl>
+      <p class="obs">GUSENBAUER, M. <em>Scientometrics</em>, v. 118, p. 177-214, 2019.</p>
+    </article>
+
+    <article class="ficha">
+      <header><h4>Crossref</h4><span class="quem">Crossref</span></header>
+      <dl>
+        <dt>Tamanho</dt><dd>Quase <span class="num">180 milhões</span> de registros; 26 mil editoras-membro em 167 países</dd>
+        <dt>Conteúdo</dt><dd>DOI, dados da publicação e referências citadas. Não traz resumo nem texto.</dd>
+        <dt>Acesso</dt><dd><span class="chip ac-aberto">Aberta</span></dd>
+      </dl>
+      <p class="obs">Arquivo público de março de 2026. <a href="https://www.crossref.org/blog/2026-public-data-file-now-available/" target="_blank" rel="noopener">Crossref</a></p>
+    </article>
+
+  </div>
+
+  <div class="caixa">
+    <span class="rot">Como montar sua busca</span>
+    <ol>
+      <li>Comece pelas bases marcadas como <strong>Principal</strong> na sua área.</li>
+      <li>Use pelo menos uma base internacional e uma latino-americana, para não deixar de fora os estudos feitos no Brasil.</li>
+      <li>Procure no Catálogo da CAPES e na BDTD se o seu tema já virou tese ou dissertação.</li>
+      <li>Anote em cada base as palavras usadas, os filtros e a data da busca. Isso entra no método do seu TCC.</li>
+    </ol>
+  </div>
+
+  <div class="caixa">
+    <span class="rot">Sobre a classificação</span>
+    <p>As marcas Principal, Recomendada e Complementar são uma orientação de uso, feita a partir do perfil de cada base. Elas não medem a cobertura de cada área em porcentagem, porque nenhuma fonte oficial publica esse número.</p>
+  </div>
+
+  <p class="footer">Material de apoio SmartTCC · Revisão de literatura. Dados verificados nas fontes indicadas em cada ficha em 28/09/2026.</p>
+
+</div>
+
+<script>
+/* Navegação interna: funciona também dentro da caixa de incorporação do Wix */
+document.addEventListener('click', function (e) {
+  var a = e.target.closest('a[href^="#"]'); if (!a) return;
+  var alvo = document.getElementById(a.getAttribute('href').slice(1)); if (!alvo) return;
+  e.preventDefault();
+  var suave = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  alvo.scrollIntoView({ behavior: suave ? 'smooth' : 'auto', block: 'start' });
+  try { history.replaceState(null, '', a.getAttribute('href')); } catch (_) {}
+  document.querySelectorAll('.caso.ativo').forEach(function (c) { c.classList.remove('ativo'); });
+  if (alvo.classList.contains('caso')) alvo.classList.add('ativo');
+});
+
+/* Informa a altura ao Wix, para o elemento de incorporação se ajustar (ver instruções no fim do arquivo) */
+(function () {
+  function avisarAltura() {
+    try { window.parent.postMessage({ tipo: 'altura', altura: document.documentElement.scrollHeight }, '*'); } catch (e) {}
+  }
+  window.addEventListener('load', avisarAltura);
+  window.addEventListener('resize', avisarAltura);
+  if (window.ResizeObserver) new ResizeObserver(avisarAltura).observe(document.body);
+})();
+</script>
+</body>
+</html>
