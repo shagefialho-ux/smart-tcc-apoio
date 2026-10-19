@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<style>html,body{margin:0;padding:0;}img{max-width:100%;}[hidden]{display:none!important;}</style>
+<title>Usando a IA: amostra gratuita</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap">
+<style>
+  /* Padrão dos slides Smart: fundo azul, faixa azul-marinho, rótulos azul-claro, destaques em amarelo; prompt no Post-it Smart */
+  :root{
+    --bg:#1E6CBE; --band:#1F3A93; --band-2:#18307C; --label:#BFE3FF; --muted:#D6E6F7; --amarelo:#FFD966; --branco:#FFFFFF;
+    --postit:#FFF6D6; --postit-borda:#FFD966; --postit-txt:#1F3A93; --postit-campo:#C2410C; --postit-rot:#B45309;
+    --painel:rgba(31,58,147,.42); --linha:rgba(255,255,255,.22);
+    --fonte:"Montserrat","Segoe UI",Helvetica,Arial,sans-serif;
+    color-scheme:light;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto;}}
+  html,body{margin:0;padding:0;}
+  body{background:var(--bg);color:var(--branco);font-family:var(--fonte);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;}
+  strong,b{font-weight:700;}
+  a{color:inherit;}
+  .wrap{max-width:66rem;margin:0 auto;padding:2rem 16px 4rem;}
+  .ico{width:1.1em;height:1.1em;flex:none;}
+
+  /* ---------- Abertura ---------- */
+  .abertura{background:var(--band);border-radius:14px;padding:clamp(1.4rem,4vw,2.6rem);position:relative;overflow:hidden;scroll-margin-top:1rem;}
+  .abertura::after{content:"";position:absolute;right:-90px;top:-90px;width:280px;height:280px;border-radius:50%;background:radial-gradient(circle,rgba(255,217,102,.28),rgba(255,217,102,0) 70%);pointer-events:none;}
+  .eyebrow{display:inline-flex;align-items:center;gap:.5rem;font-size:.75rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--band);background:var(--amarelo);padding:.4rem .8rem;border-radius:99px;margin:0 0 1.1rem;}
+  h1{font-size:clamp(1.8rem,5.4vw,2.8rem);font-weight:800;line-height:1.1;margin:0 0 .9rem;text-wrap:balance;letter-spacing:-.01em;}
+  h1 em{font-style:normal;color:var(--amarelo);}
+  .lead{font-size:clamp(1rem,2.2vw,1.12rem);font-weight:500;color:var(--muted);max-width:44rem;margin:0 0 1.6rem;}
+  .tres{display:grid;grid-template-columns:repeat(3,1fr);gap:.9rem;margin:0 0 1.2rem;}
+  .tile{background:rgba(255,255,255,.07);border:1px solid var(--linha);border-radius:10px;padding:1rem 1.05rem;}
+  .tile h2{display:flex;align-items:center;gap:.5rem;font-size:.8rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--label);margin:0 0 .45rem;}
+  .tile p{margin:0;font-size:.92rem;}
+  .tile .num{color:var(--amarelo);font-weight:800;}
+  .aviso{display:flex;gap:.9rem;align-items:flex-start;background:var(--postit);color:var(--postit-txt);border:2px solid var(--postit-borda);border-radius:10px;padding:.95rem 1.1rem;}
+  .aviso .ico{width:1.6rem;height:1.6rem;color:var(--postit-rot);margin-top:.1rem;}
+  .aviso p{margin:0;font-size:.95rem;}
+  .aviso strong{color:var(--postit-rot);}
+
+  /* Índice */
+  .indice{margin:1.2rem 0 0;background:var(--band);border-radius:14px;padding:clamp(1.1rem,3vw,1.6rem);border-top:6px solid var(--amarelo);scroll-margin-top:1rem;}
+  .indice > h2{display:flex;align-items:center;gap:.5rem;font-size:1rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--branco);margin:0 0 1rem;}
+  .ind-grade{display:grid;grid-template-columns:1fr 1.6fr 2fr 1.4fr;gap:.9rem;}
+  .ind-grupo h3{font-size:.85rem;font-weight:800;margin:0 0 .5rem;padding-bottom:.35rem;border-bottom:2px solid var(--amarelo);}
+  .ind-grupo ol{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:.3rem;}
+  .ind-grupo a{display:flex;align-items:center;gap:.5rem;text-decoration:none;font-size:.9rem;font-weight:600;padding:.3rem .45rem;border-radius:6px;transition:background .15s;}
+  .ind-grupo a:hover,.ind-grupo a:focus-visible{background:rgba(255,255,255,.12);}
+  .ind-grupo a span{flex:none;display:inline-grid;place-items:center;width:1.55rem;height:1.55rem;border-radius:50%;background:var(--branco);color:var(--band);font-size:.72rem;font-weight:800;}
+
+  /* ---------- Blocos ---------- */
+  .bloco{margin-top:1.4rem;scroll-margin-top:1rem;}
+  .bloco-cab{display:flex;align-items:center;gap:.6rem 1rem;flex-wrap:wrap;background:var(--band);border-radius:10px;padding:.85rem 1rem .85rem 1.15rem;border-left:6px solid var(--amarelo);}
+  .bloco-id{display:flex;flex-direction:column;line-height:1.2;min-width:8.5rem;}
+  .bloco-num{font-size:.72rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--amarelo);}
+  .bloco-grupo{font-size:.72rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--label);}
+  .bloco-cab h2{flex:1;margin:0;font-size:clamp(1.3rem,3.6vw,1.75rem);font-weight:800;text-transform:uppercase;letter-spacing:.02em;line-height:1.15;}
+  .btn-topo{display:inline-flex;align-items:center;gap:.35rem;text-decoration:none;font-size:.78rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--band);background:var(--amarelo);padding:.5rem .85rem;border-radius:99px;transition:transform .15s,box-shadow .15s;}
+  .btn-topo:hover,.btn-topo:focus-visible{transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,.25);}
+
+  .cartoes{display:flex;flex-direction:column;gap:1rem;margin-top:1rem;}
+  .cartao{background:rgba(255,255,255,.06);border:1px solid var(--linha);border-radius:12px;padding:clamp(1rem,3vw,1.5rem);}
+  .cartao-cab{display:flex;align-items:center;flex-wrap:wrap;gap:.3rem .7rem;margin-bottom:.55rem;}
+  .ico-circ{width:2.1rem;height:2.1rem;padding:.42rem;border-radius:50%;background:var(--branco);color:var(--band);}
+  .cartao-cab span{font-size:.72rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--label);}
+  .cartao-cab h3{flex-basis:100%;margin:.25rem 0 0;font-size:clamp(1.1rem,3vw,1.35rem);font-weight:800;text-transform:uppercase;}
+  .intro{margin:0 0 1rem;max-width:52rem;}
+
+  /* Tabela grátis × pago */
+  .tabela{border-radius:10px;overflow:hidden;background:var(--painel);}
+  .th,.tr{display:grid;grid-template-columns:minmax(9rem,1.1fr) 2.2fr 2.2fr;gap:1rem;padding:.75rem 1rem;}
+  .th{background:var(--band);font-size:.72rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--label);}
+  .tr{border-top:1px solid var(--linha);font-size:.92rem;}
+  .td.nome strong{display:block;font-size:1.02rem;}
+  .td.nome small{display:block;font-size:.75rem;color:var(--label);}
+  .rot{display:block;font-size:.74rem;font-weight:700;color:var(--label);margin-bottom:.15rem;}
+  .rot-m{display:none;font-style:normal;}
+  .tarja{margin:.9rem 0 0;background:var(--band);border-radius:8px;padding:.7rem 1rem;font-size:.93rem;}
+  .tarja b{color:var(--label);text-transform:uppercase;letter-spacing:.05em;font-size:.85rem;margin-right:.25rem;}
+  .nota{margin:.55rem 0 0;font-size:.75rem;color:var(--muted);opacity:.9;}
+
+  /* Prompt — Post-it Smart */
+  .prompt-grid{display:grid;grid-template-columns:1.9fr 1fr;gap:1rem;align-items:start;}
+  .postit{background:var(--postit);color:var(--postit-txt);border:2px solid var(--postit-borda);border-radius:10px;padding:1rem 1.15rem 1.1rem;box-shadow:0 6px 18px rgba(10,30,80,.22);}
+  .postit-cab{display:flex;align-items:center;justify-content:space-between;gap:.6rem;flex-wrap:wrap;margin-bottom:.7rem;}
+  .postit-cab > span{font-size:.72rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--postit-rot);}
+  .btn-copiar{display:inline-flex;align-items:center;gap:.4rem;font:inherit;font-size:.78rem;font-weight:700;color:var(--branco);background:var(--postit-txt);border:0;border-radius:99px;padding:.45rem .85rem;cursor:pointer;transition:background .15s;}
+  .btn-copiar:hover,.btn-copiar:focus-visible{background:var(--band-2);}
+  .btn-copiar.ok{background:#0B6B3A;}
+  .postit-txt p{margin:0 0 .7rem;font-size:.96rem;}
+  .postit-txt p:last-child{margin-bottom:0;}
+  .campo{font-weight:700;color:var(--postit-campo);}
+  .campo-cl{font-weight:700;color:var(--amarelo);}
+  .campos{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.3);border-radius:10px;padding:1rem 1.05rem;}
+  .campos h4{margin:0 0 .6rem;font-size:.75rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--label);}
+  .campos dl{margin:0;}
+  .campos dt{font-weight:700;color:var(--amarelo);font-size:.9rem;}
+  .campos dd{margin:0 0 .6rem;font-size:.9rem;}
+  .campos dd:last-child{margin-bottom:0;}
+
+  /* Separador "a seguir" */
+  .proximo{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:.3rem 1rem;margin:2.2rem 0 0;padding:1rem 1.15rem;border-radius:10px;border:2px dashed rgba(255,255,255,.45);text-decoration:none;transition:background .15s,border-color .15s;}
+  a.proximo:hover,a.proximo:focus-visible{background:rgba(255,255,255,.08);border-color:var(--amarelo);}
+  .proximo-rot{display:inline-flex;align-items:center;gap:.4rem;font-size:.72rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--amarelo);}
+  .proximo-nome{font-size:1.1rem;font-weight:800;text-transform:uppercase;}
+  .proximo-grupo{font-size:.75rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--label);}
+  .proximo.fim{grid-template-columns:auto 1fr auto;}
+
+  .rodape{margin-top:2.4rem;font-size:.8rem;color:var(--muted);text-align:center;}
+
+  :focus-visible{outline:3px solid var(--amarelo);outline-offset:2px;}
+
+  @media (max-width:860px){
+    .tres{grid-template-columns:1fr;}
+    .ind-grade{grid-template-columns:1fr 1fr;}
+    .prompt-grid{grid-template-columns:1fr;}
+  }
+  @media (max-width:640px){
+    .ind-grade{grid-template-columns:1fr;}
+    .th{display:none;}
+    .tr{grid-template-columns:1fr;gap:.55rem;}
+    .rot-m{display:inline;}
+    .proximo,.proximo.fim{grid-template-columns:1fr;}
+    .bloco-cab h2{flex-basis:100%;order:3;}
+  }
+
+  /* Amostra: partes fora da amostra e botão de retorno */
+  .ind-off{display:flex;align-items:center;gap:.5rem;font-size:.9rem;font-weight:600;padding:.3rem .45rem;opacity:.5;cursor:default;}
+  .ind-off span{flex:none;display:inline-grid;place-items:center;width:1.55rem;height:1.55rem;border-radius:50%;background:var(--branco);color:var(--band);font-size:.72rem;font-weight:800;}
+  .aviso-txt p + p{margin-top:.6rem;}
+  .btn-home{position:fixed;right:16px;bottom:16px;z-index:50;display:inline-flex;align-items:center;gap:.45rem;text-decoration:none;font-size:.82rem;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:var(--band);background:var(--amarelo);padding:.7rem 1.1rem;border-radius:99px;box-shadow:0 6px 18px rgba(10,30,80,.35);transition:transform .15s,box-shadow .15s;}
+  .btn-home:hover,.btn-home:focus-visible{transform:translateY(-2px);box-shadow:0 8px 22px rgba(10,30,80,.45);}
+  .wrap{padding-bottom:6rem;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="abertura" id="topo">
+  <p class="eyebrow">Smart TCC · Material de apoio</p>
+  <h1>Usando a IA em <em>cada parte</em> do seu TCC</h1>
+  <p class="lead">Quais ferramentas de inteligência artificial ajudam em cada parte da monografia, o que cada uma oferece de graça e no plano pago, e um prompt pronto para você usar no Claude gratuito.</p>
+  <div class="tres">
+    <div class="tile"><h2><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg> Objetivo</h2><p>Usar a IA como apoio, parte por parte, sem deixar que ela escreva o trabalho por você.</p></div>
+    <div class="tile"><h2><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h.01"/><path d="M3 18h.01"/><path d="M3 6h.01"/><path d="M8 12h13"/><path d="M8 18h13"/><path d="M8 6h13"/></svg> Conteúdo</h2><p><span class="num">23 blocos</span>, um para cada parte do TCC, da Capa aos Anexos. Cada bloco traz IA de uso geral, ferramentas especializadas e um prompt pronto.</p></div>
+    <div class="tile"><h2><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m16.24 7.76-1.804 5.411a2 2 0 0 1-1.265 1.265L7.76 16.24l1.804-5.411a2 2 0 0 1 1.265-1.265z"/></svg> Navegação</h2><p>Use o <strong>índice</strong> logo abaixo para ir direto a cada parte. Em cada bloco, o botão <strong>Topo</strong> traz você de volta para cá.</p></div>
+  </div>
+  <div class="aviso"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="M10 4v4"/><path d="M2 8h20"/><path d="M6 4v4"/></svg><div class="aviso-txt"><p>Esta página é de <strong>acesso gratuito</strong> e apresenta apenas as orientações de uso relativas à <strong>pergunta</strong>. Cada parte da monografia recebe uma orientação nesse mesmo padrão. Esse conteúdo é atualizado mensalmente.</p><p>E a IA no Smart vai além destas orientações. <strong>Assinando o Smart</strong>, você conversa livremente com o agente inteligente <strong>CONTEÚDOS</strong> sobre toda a base de conhecimento do curso e pode contratar <strong>pareceres completos</strong>, com feedback preciso sobre o seu projeto ou a sua monografia.</p></div></div>
+</header>
+
+<nav class="indice" id="indice" aria-labelledby="t-indice">
+  <h2 id="t-indice"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h.01"/><path d="M3 18h.01"/><path d="M3 6h.01"/><path d="M8 12h13"/><path d="M8 18h13"/><path d="M8 6h13"/></svg> Índice · as 23 partes da página</h2>
+    <div class="ind-grade">
+    <div class="ind-grupo"><h3>Parte externa</h3><ol><li><span class="ind-off" title="Disponível na versão completa"><span>1</span>Capa</span></li></ol></div>
+    <div class="ind-grupo"><h3>Pré-textuais</h3><ol><li><span class="ind-off" title="Disponível na versão completa"><span>2</span>Folha de Rosto</span></li><li><span class="ind-off" title="Disponível na versão completa"><span>3</span>Termo de Aprovação</span></li><li><span class="ind-off" title="Disponível na versão completa"><span>4</span>Dedicatória</span></li><li><span class="ind-off" title="Disponível na versão completa"><span>5</span>Agradecimento</span></li><li><span class="ind-off" title="Disponível na versão completa"><span>6</span>Epígrafe</span></li><li><span class="ind-off" title="Disponível na versão completa"><span>7</span>Resumo</span></li><li><span class="ind-off" title="Disponível na versão completa"><span>8</span>Listas</span></li><li><span class="ind-off" title="Disponível na versão completa"><span>9</span>Sumário</span></li></ol></div>
+    <div class="ind-grupo"><h3>Textuais</h3><ol><li><span class="ind-off" title="Disponível na versão completa"><span>10</span>Introdução</span></li><li><span class="ind-off" title="Disponível na versão completa"><span>11</span>Tema</span></li><li><span class="ind-off" title="Disponível na versão completa"><span>12</span>Contexto</span></li><li><a href="#pergunta"><span>13</span>Pergunta</a></li><li><span class="ind-off" title="Disponível na versão completa"><span>14</span>Objetivos</span></li><li><span class="ind-off" title="Disponível na versão completa"><span>15</span>Justificativa</span></li><li><span class="ind-off" title="Disponível na versão completa"><span>16</span>Seções</span></li><li><span class="ind-off" title="Disponível na versão completa"><span>17</span>Revisão da Literatura</span></li><li><span class="ind-off" title="Disponível na versão completa"><span>18</span>Metodologia</span></li><li><span class="ind-off" title="Disponível na versão completa"><span>19</span>Análise de Resultados</span></li></ol></div>
+    <div class="ind-grupo"><h3>Pós-textuais</h3><ol><li><span class="ind-off" title="Disponível na versão completa"><span>20</span>Referências</span></li><li><span class="ind-off" title="Disponível na versão completa"><span>21</span>Glossário</span></li><li><span class="ind-off" title="Disponível na versão completa"><span>22</span>Apêndices</span></li><li><span class="ind-off" title="Disponível na versão completa"><span>23</span>Anexos</span></li></ol></div>
+    </div>
+</nav>
+
+<section class="bloco" id="pergunta" aria-labelledby="t-pergunta">
+  <header class="bloco-cab">
+    <div class="bloco-id"><span class="bloco-num">Bloco 13 de 23</span><span class="bloco-grupo">Textuais</span></div>
+    <h2 id="t-pergunta">Pergunta</h2>
+    <a class="btn-topo" href="#topo"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 7-7 7 7"/><path d="M12 19V5"/></svg><span>Topo</span></a>
+  </header>
+  <div class="cartoes">
+  <article class="cartao">
+    <div class="cartao-cab"><svg class="ico ico-circ" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/><path d="M20 3v4"/><path d="M22 5h-4"/><path d="M4 17v2"/><path d="M5 18H3"/></svg><span>Usando a IA 1/3 · Pergunta</span><h3>IA de uso geral (LLMs)</h3></div>
+    <p class="intro">A IA funciona como <strong>leitor crítico</strong>: testa a pergunta nos <strong>critérios</strong> do Smart (clareza, autenticidade...).</p>
+    <div class="tabela" role="table">
+      <div class="th" role="row"><span role="columnheader">Ferramenta</span><span role="columnheader">Versão gratuita</span><span role="columnheader">Versão paga (plano de entrada)</span></div>
+      <div class="tr" role="row">
+        <div class="td nome" role="cell"><strong>ChatGPT</strong><small>OpenAI</small></div>
+        <div class="td" role="cell"><span class="rot"><em class="rot-m">Grátis · </em>Free · GPT-5.6 Luna</span>Avalia a pergunta <strong>critério a critério</strong> e sugere reformulações.</div>
+        <div class="td" role="cell"><span class="rot"><em class="rot-m">Pago · </em>Plus US$ 20/mês · GPT-5.6 Sol (Go: R$ 39,99)</span>Raciocínio mais profundo e <strong>histórico das versões</strong> da pergunta.</div>
+      </div>
+      <div class="tr" role="row">
+        <div class="td nome" role="cell"><strong>Claude</strong><small>Anthropic</small></div>
+        <div class="td" role="cell"><span class="rot"><em class="rot-m">Grátis · </em>Free · Sonnet 5</span><strong>Pergunta de volta</strong> para revelar ambiguidades, como um colega.</div>
+        <div class="td" role="cell"><span class="rot"><em class="rot-m">Pago · </em>Pro US$ 20/mês · Opus 5.5 e Sonnet 5</span>Com tema e contexto no Projeto: a pergunta <strong>decorre deles?</strong></div>
+      </div>
+      <div class="tr" role="row">
+        <div class="td nome" role="cell"><strong>Gemini</strong><small>Google</small></div>
+        <div class="td" role="cell"><span class="rot"><em class="rot-m">Grátis · </em>Grátis · 3.6 Flash</span>Verifica na busca Google se a pergunta <strong>já foi respondida</strong>.</div>
+        <div class="td" role="cell"><span class="rot"><em class="rot-m">Pago · </em>Google AI Plus R$ 24,99/mês · 3.1 Pro</span><strong>Deep Research</strong>: o que já se sabe e o que ainda falta.</div>
+      </div>
+      <div class="tr" role="row">
+        <div class="td nome" role="cell"><strong>Perplexity</strong><small>Perplexity AI</small></div>
+        <div class="td" role="cell"><span class="rot"><em class="rot-m">Grátis · </em>Grátis</span>Encontra <strong>estudos com perguntas parecidas</strong>.</div>
+        <div class="td" role="cell"><span class="rot"><em class="rot-m">Pago · </em>Pro US$ 20/mês</span>Busca acadêmica <strong>ampliada</strong>.</div>
+      </div>
+    </div>
+    <p class="tarja"><b>Atenção:</b> Faça o teste de clareza <strong>com pessoas</strong>, não só com a IA: ela tende a elogiar.</p>
+    <p class="nota">Versões e preços consultados em set/2026 nos sites oficiais e em comparadores; valores de entrada, sujeitos a alteração.</p>
+  </article>
+  <article class="cartao">
+    <div class="cartao-cab"><svg class="ico ico-circ" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg><span>Usando a IA 2/3 · Pergunta</span><h3>Ferramentas especializadas</h3></div>
+    <p class="intro">Buscadores que dizem se <strong>sua pergunta já tem resposta</strong>.</p>
+    <div class="tabela" role="table">
+      <div class="th" role="row"><span role="columnheader">Ferramenta</span><span role="columnheader">Versão gratuita</span><span role="columnheader">Versão paga (plano de entrada)</span></div>
+      <div class="tr" role="row">
+        <div class="td nome" role="cell"><strong>Elicit</strong><small>busca e síntese</small></div>
+        <div class="td" role="cell"><span class="rot"><em class="rot-m">Grátis · </em>Basic grátis</span>Encontra artigos que respondem <strong>perguntas semelhantes</strong> e resume os achados.</div>
+        <div class="td" role="cell"><span class="rot"><em class="rot-m">Pago · </em>Pro US$ 49/mês</span>Extração de dados <strong>em tabela</strong> e relatórios de revisão sistemática.</div>
+      </div>
+      <div class="tr" role="row">
+        <div class="td nome" role="cell"><strong>Undermind</strong><small>busca profunda</small></div>
+        <div class="td" role="cell"><span class="rot"><em class="rot-m">Grátis · </em>Grátis · ~3 buscas profundas/mês</span>Busca profunda que indica se a pergunta <strong>já foi respondida</strong> na literatura.</div>
+        <div class="td" role="cell"><span class="rot"><em class="rot-m">Pago · </em>Pro US$ 16/mês (anual)</span>~10x mais buscas e <strong>leitura do texto completo</strong> dos artigos.</div>
+      </div>
+      <div class="tr" role="row">
+        <div class="td nome" role="cell"><strong>Consensus</strong><small>busca em artigos</small></div>
+        <div class="td" role="cell"><span class="rot"><em class="rot-m">Grátis · </em>Grátis · buscas Pro limitadas</span>Mostra o que <strong>artigos reais</strong> dizem sobre uma questão, com links para cada estudo.</div>
+        <div class="td" role="cell"><span class="rot"><em class="rot-m">Pago · </em>Pro US$ 12/mês (anual)</span><strong>Buscas Pro ilimitadas</strong> e cerca de 15 buscas profundas por mês.</div>
+      </div>
+    </div>
+    <p class="tarja"><b>Dica:</b> Se a pergunta já tem resposta, <strong>refine o recorte</strong>: outro lugar, período ou público.</p>
+    <p class="nota">Versões e preços consultados em set/2026 nos sites oficiais e em comparadores; valores de entrada, sujeitos a alteração.</p>
+  </article>
+  <article class="cartao">
+    <div class="cartao-cab"><svg class="ico ico-circ" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><path d="M13 8H7"/><path d="M17 12H7"/></svg><span>Usando a IA 3/3 · Pergunta</span><h3>Prompt pronto para o Claude gratuito</h3></div>
+    <p class="intro">Tarefa-chave: <strong>testar a pergunta</strong> nos critérios, com um leitor exigente.</p>
+    <div class="prompt-grid">
+      <div class="postit">
+        <div class="postit-cab"><span>Copie e cole no Claude · claude.ai</span>
+          <button type="button" class="btn-copiar" data-alvo="pr-pergunta"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg><span>Copiar prompt</span></button></div>
+        <div class="postit-txt" id="pr-pergunta">
+          <p>Minha pergunta de pesquisa é: <span class="campo">[SUA PERGUNTA]</span><br>Tema: <span class="campo">[TEMA]</span>. Contexto em 2 frases: <span class="campo">[CONTEXTO]</span>.</p>
+          <p>Avalie a pergunta nos critérios: clareza; autenticidade (não é óbvia nem já respondida); exequibilidade (dá para responder com meu tempo e meus dados: <span class="campo">[TEMPO E DADOS DISPONÍVEIS]</span>); pertinência ao curso.</p>
+          <p>Dê nota de 1 a 5 em cada critério, justifique e proponha 3 reformulações. Antes de avaliar, faça-me até 3 perguntas se algo estiver ambíguo. Seja crítico: não elogie sem motivo.</p>
+        </div>
+      </div>
+      <aside class="campos">
+        <h4>Onde inserir seus dados</h4>
+        <dl>
+          <dt>[SUA PERGUNTA]</dt><dd>a versão atual, com ponto de interrogação</dd>
+          <dt>[CONTEXTO]</dt><dd>resumo das partes Tema e Contexto</dd>
+          <dt>[TEMPO E DADOS...]</dt><dd>ex.: &quot;4 meses, acesso a 20 professores&quot;</dd>
+        </dl>
+      </aside>
+    </div>
+    <p class="tarja"><b>Como usar:</b> entre em <strong>claude.ai</strong> com conta gratuita → <strong>Novo chat</strong> → cole o prompt → troque cada <span class="campo-cl">[CAMPO]</span> pelo seu conteúdo, <strong>apagando os colchetes</strong> → anexe arquivos pelo botão <strong>+</strong> → envie e <strong>revise</strong> a resposta.</p>
+    <p class="nota">Pensado para o Claude gratuito (Sonnet 5, set/2026); funciona também nos planos pagos. Nunca envie dados pessoais de participantes.</p>
+  </article>
+  </div>
+</section>
+<div class="proximo fim"><span class="proximo-rot">Fim da amostra</span><span class="proximo-nome">As outras 22 partes estão na versão completa</span><a class="btn-topo" href="#topo"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 7-7 7 7"/><path d="M12 19V5"/></svg><span>Voltar ao topo</span></a></div>
+
+<p class="rodape">Material de apoio Smart TCC · Usando a IA em cada parte · Amostra gratuita · Versões, planos e preços consultados em setembro de 2026.</p>
+</div>
+
+<a class="btn-home" id="btn-home" href="https://www.smarttcc.com.br" target="_top"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg><span>Retorno à Homepage</span></a>
+
+<script>
+/* Navegação interna: funciona também dentro da caixa de incorporação do Wix */
+document.addEventListener('click', function (e) {
+  var a = e.target.closest('a[href^="#"]'); if (!a) return;
+  var alvo = document.getElementById(a.getAttribute('href').slice(1)); if (!alvo) return;
+  e.preventDefault();
+  var suave = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  alvo.scrollIntoView({ behavior: suave ? 'smooth' : 'auto', block: 'start' });
+  try { history.replaceState(null, '', a.getAttribute('href')); } catch (_) {}
+});
+
+/* Link com #parte (botões das páginas do Smart): ao abrir, vai direto ao bloco, depois de carregar a fonte */
+(function () {
+  var id = decodeURIComponent(location.hash.slice(1)); if (!id) return;
+  function ir() {
+    var alvo = document.getElementById(id); if (!alvo) return;
+    var h = document.documentElement, antes = h.style.scrollBehavior;
+    h.style.scrollBehavior = 'auto';
+    alvo.scrollIntoView({ block: 'start' });
+    h.style.scrollBehavior = antes;
+  }
+  ir();
+  window.addEventListener('load', ir);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(ir);
+})();
+
+/* Botão "Copiar prompt": copia o texto puro, sem cor nem formatação */
+document.addEventListener('click', function (e) {
+  var b = e.target.closest('.btn-copiar'); if (!b) return;
+  var el = document.getElementById(b.dataset.alvo); if (!el) return;
+  var texto = Array.prototype.map.call(el.querySelectorAll('p'), function (p) { return p.innerText.trim(); }).join('\n\n');
+  var rot = b.querySelector('span');
+  function feito(ok) {
+    rot.textContent = ok ? 'Copiado!' : 'Selecione e copie';
+    b.classList.toggle('ok', ok);
+    setTimeout(function () { rot.textContent = 'Copiar prompt'; b.classList.remove('ok'); }, 2200);
+  }
+  function reserva() {
+    var t = document.createElement('textarea');
+    t.value = texto; t.setAttribute('readonly', ''); t.style.position = 'fixed'; t.style.opacity = '0';
+    document.body.appendChild(t); t.select();
+    var ok = false; try { ok = document.execCommand('copy'); } catch (_) {}
+    document.body.removeChild(t);
+    if (!ok) { var r = document.createRange(); r.selectNodeContents(el); var s = getSelection(); s.removeAllRanges(); s.addRange(r); }
+    feito(ok);
+  }
+  if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(texto).then(function () { feito(true); }, reserva);
+  else reserva();
+});
+
+/* Botão "Retorno à Homepage": abre o site na janela inteira; se a moldura não deixar, abre em nova aba */
+document.getElementById('btn-home').addEventListener('click', function (e) {
+  e.preventDefault();
+  try { window.top.location.href = this.href; } catch (_) { window.open(this.href, '_blank', 'noopener'); }
+});
+</script>
+
+<script>
+/* Informa a altura ao Wix, para o elemento de incorporação se ajustar (ver instruções no fim do arquivo) */
+(function () {
+  function avisarAltura() {
+    try { window.parent.postMessage({ tipo: 'altura', altura: document.documentElement.scrollHeight }, '*'); } catch (e) {}
+  }
+  window.addEventListener('load', avisarAltura);
+  window.addEventListener('resize', avisarAltura);
+  if (window.ResizeObserver) new ResizeObserver(avisarAltura).observe(document.body);
+})();
+</script>
+</body>
+</html>
