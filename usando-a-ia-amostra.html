@@ -309,8 +309,10 @@ document.addEventListener('click', function (e) {
   else reserva();
 });
 
-/* Botão "Retorno à Homepage": abre o site na janela inteira; se a moldura não deixar, abre em nova aba */
-document.getElementById('btn-home').addEventListener('click', function (e) {
+/* Botão "Retorno à Homepage": abre o site na janela inteira; se a moldura não deixar, abre em nova aba.
+   Não existe na versão -wix: lá o botão é um objeto do Wix fixado na tela. */
+var btnHome = document.getElementById('btn-home');
+if (btnHome) btnHome.addEventListener('click', function (e) {
   e.preventDefault();
   try { window.top.location.href = this.href; } catch (_) { window.open(this.href, '_blank', 'noopener'); }
 });
