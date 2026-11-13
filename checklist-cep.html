@@ -419,7 +419,10 @@ se enquadra nela.</p>
     try{ window.parent.postMessage({ tipo: 'progresso', feitos: n, total: itens.length }, '*'); }catch(e){}
   }
   window.addEventListener('message', function(ev){
-    if (ev.data && ev.data.tipo === 'pedir-progresso') avisar();
+    if (ev.source !== window.parent || !ev.data) return;
+    if (ev.data.tipo === 'pedir-progresso') avisar();
+    if (ev.data.tipo === 'limpar') document.getElementById('limpar').click();
+    if (ev.data.tipo === 'imprimir' && document.getElementById('imprimir')) document.getElementById('imprimir').click();
   });
   window.addEventListener('load', function(){ avisar(); setTimeout(avisar, 1500); setTimeout(avisar, 4000); });
 
