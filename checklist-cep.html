@@ -409,7 +409,19 @@ se enquadra nela.</p>
     var n = itens.filter(function(e){ return e.checked; }).length;
     feitos.textContent = n;
     fill.style.width = itens.length ? (n / itens.length * 100) + '%' : '0';
+    avisar(n);
   }
+  /* Dentro do bloco do Wix a barra rola com a página: a contagem vai para a página de fora,
+     que a mostra num elemento fixado na tela (código Velo da página /pag-cep). */
+  function avisar(n){
+    if (window.parent === window) return;
+    if (n === undefined) n = itens.filter(function(e){ return e.checked; }).length;
+    try{ window.parent.postMessage({ tipo: 'progresso', feitos: n, total: itens.length }, '*'); }catch(e){}
+  }
+  window.addEventListener('message', function(ev){
+    if (ev.data && ev.data.tipo === 'pedir-progresso') avisar();
+  });
+  window.addEventListener('load', function(){ avisar(); setTimeout(avisar, 1500); setTimeout(avisar, 4000); });
 
   restaurar(); pintar();
   itens.forEach(function(e){
